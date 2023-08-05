@@ -1,5 +1,5 @@
-import { Navbar, Container, Row, Col, Nav } from "react-bootstrap";
-import { sampleProducts } from "./data";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import Homepage from "./Pages/Hompage";
 
 function App() {
   return (
@@ -22,15 +22,7 @@ function App() {
       </header>
       <main>
         <Container className="mt-3">
-          <Row>
-            {sampleProducts.map((products) => (
-              <Col key={products.slug} sm={6} md={4} lg={3}>
-                <img src={products.image} alt="" className="product-image" />
-                <h2>{products.name}</h2>
-                <p>${products.price}</p>
-              </Col>
-            ))}
-          </Row>
+          <Homepage />
         </Container>
       </main>
       <footer>
