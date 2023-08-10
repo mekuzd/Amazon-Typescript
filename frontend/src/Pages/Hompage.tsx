@@ -7,6 +7,7 @@ import axios from "axios";
 import Loading from "../Components/Loading";
 import Message from "../Components/Message";
 import ProductItem from "../Components/ProductItem";
+import { Helmet } from "react-helmet-async";
 type State = {
   products: Product[];
   loading: boolean;
@@ -63,6 +64,9 @@ const Homepage = () => {
     <Message variant="danger">{error}</Message>
   ) : (
     <Row>
+      <Helmet>
+        <title>Amazona Ts</title>
+      </Helmet>
       {products.map((products) => (
         <Col key={products.slug} sm={6} md={4} lg={3}>
           <ProductItem products={products} />
