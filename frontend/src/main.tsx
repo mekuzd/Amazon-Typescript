@@ -6,7 +6,9 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Product from "./Pages/product.tsx";
-
+import axios from "axios";
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development" ? "http://localhost:5000" : "/";
 const router = createBrowserRouter([
   {
     path: "/",
