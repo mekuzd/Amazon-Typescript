@@ -1,5 +1,4 @@
 import { Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { Product } from "../Types/Product";
 import { useReducer, useEffect } from "react";
 import { getError } from "../utils";
@@ -7,6 +6,7 @@ import { ApiError } from "../Types/apiError";
 import axios from "axios";
 import Loading from "../Components/Loading";
 import Message from "../Components/Message";
+import ProductItem from "../Components/ProductItem";
 type State = {
   products: Product[];
   loading: boolean;
@@ -65,11 +65,7 @@ const Homepage = () => {
     <Row>
       {products.map((products) => (
         <Col key={products.slug} sm={6} md={4} lg={3}>
-          <Link to={`/product/${products.slug}`}>
-            <img src={products.image} alt="" className="product-image" />
-            <h2>{products.name}</h2>
-            <p>${products.price}</p>
-          </Link>
+          <ProductItem products={products} />
         </Col>
       ))}
     </Row>
