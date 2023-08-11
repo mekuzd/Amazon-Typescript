@@ -11,10 +11,11 @@ import apiClient from "../Services/apiClient";
 import { State } from "../Types/state";
 import { Action } from "../Types/Action";
 
-const initialState: State = {
+export const initialState: State = {
   products: [],
   loading: true,
   error: "",
+  product: "",
 };
 
 const Homepage = () => {

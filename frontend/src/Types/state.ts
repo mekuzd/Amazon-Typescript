@@ -4,4 +4,5 @@ export type State = {
   products: Product[];
   loading: boolean;
   error: string;
+  product: Product;
 };

@@ -15,6 +15,8 @@ export const reducer = (state: State, action: Action) => {
     return { ...state, products: action.payload, loading: false };
   } else if (action.type == "FETCH_FAIL") {
     return { ...state, error: action.payload, loading: false };
+  } else if (action.type == "FETCH_PRODUCT") {
+    return { ...state, product: action.payload, loading: false };
   } else {
     return state;
   }
