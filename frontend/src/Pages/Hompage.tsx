@@ -15,7 +15,7 @@ export const initialState: State = {
   products: [],
   loading: true,
   error: "",
-  product: "",
+  product: {},
 };
 
 const Homepage = () => {
