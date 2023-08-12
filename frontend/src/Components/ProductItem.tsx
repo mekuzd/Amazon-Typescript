@@ -10,9 +10,7 @@ const ProductItem = ({ products }: { products: Product }) => {
         <img src={products.image} alt="" className="product-image" />
       </Link>
       <Card.Body>
-        <Card.Title>
-          <h2>{products.name}</h2>
-        </Card.Title>
+        <Card.Title>{products.name}</Card.Title>
         <Rate disabled value={products.rating} />
         <Card.Text>
           <h5 className="text-warning">{products.numReviews} reviews</h5>
