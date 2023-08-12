@@ -94,12 +94,14 @@ const Product = () => {
                       </Row>
                     </ListGroup.Item>
 
-                    {product.countInStock !== 0 && (
+                    {product.countInStock ? (
                       <ListGroup.Item>
                         <div className="d-grid">
                           <Button variant="primary">Add to Cart</Button>
                         </div>
                       </ListGroup.Item>
+                    ) : (
+                      ""
                     )}
                   </ListGroup>
                 </Card.Body>
