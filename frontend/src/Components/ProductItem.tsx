@@ -5,7 +5,7 @@ import { Rate } from "antd";
 
 const ProductItem = ({ products }: { products: Product }) => {
   return (
-    <Card>
+    <Card className="m-1">
       <Link to={`/product/${products.slug}`}>
         <img src={products.image} alt="" className="product-image" />
       </Link>

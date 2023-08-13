@@ -45,7 +45,7 @@ const Product = () => {
   ) : (
     <div>
       <DefaultLayout>
-        <div className="p-3">
+        <div className="p-4">
           <Row>
             <Col md={6}>
               <img
