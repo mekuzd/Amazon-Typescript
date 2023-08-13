@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useReducer } from "react";
-import { getError, reducer } from "../utils";
+import { getError } from "../utils";
+import { reducer } from "../Reducer";
+
 import { State } from "../Types/state";
 import { Action } from "../Types/Action";
 import { initialState } from "./Hompage";
@@ -43,7 +45,7 @@ const Product = () => {
   ) : (
     <div>
       <DefaultLayout>
-        <div className="p-5">
+        <div className="p-3">
           <Row>
             <Col md={6}>
               <img
@@ -62,7 +64,9 @@ const Product = () => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Rate disabled value={product.rating} />
-                  <p className="text-warning">{product.numReviews} Reviews</p>
+                  <span className="text-warning mx-2 text-bold">
+                    {product.numReviews} Reviews
+                  </span>
                 </ListGroup.Item>
                 <ListGroup.Item>Price : ${product!.price}</ListGroup.Item>
                 <ListGroup.Item>

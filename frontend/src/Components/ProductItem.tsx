@@ -13,7 +13,7 @@ const ProductItem = ({ products }: { products: Product }) => {
         <Card.Title>{products.name}</Card.Title>
         <Rate disabled value={products.rating} />
         <Card.Text>
-          <h5 className="text-warning">{products.numReviews} reviews</h5>
+          <p className="text-warning">{products.numReviews} reviews</p>
           <p>${products.price}</p>
         </Card.Text>
         {products.countInStock === 0 ? (

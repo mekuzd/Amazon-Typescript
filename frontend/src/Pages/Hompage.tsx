@@ -1,7 +1,7 @@
 import { Row, Col } from "react-bootstrap";
-
 import { useReducer, useEffect } from "react";
-import { getError, reducer } from "../utils";
+import { getError } from "../utils";
+import { reducer } from "../Reducer";
 import { ApiError } from "../Types/apiError";
 import Loading from "../Components/Loading";
 import Message from "../Components/Message";
