@@ -1,6 +1,6 @@
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { useContext, useEffect } from "react";
-import { Store } from "../Store";
+import { Store } from "../Provider/Store";
 export type Props = {
   children: React.ReactNode;
 };

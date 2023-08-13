@@ -7,7 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Product from "./Pages/product.tsx";
-import { StoreProvider } from "./Store.tsx";
+import { StoreProvider } from "./Provider/Store.tsx";
 
 const router = createBrowserRouter([
   {
