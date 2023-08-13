@@ -7,7 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Product from "./Pages/product.tsx";
-import ContextProvider from "./Provider/Context.tsx";
+import { StoreProvider } from "./Store.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +23,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ContextProvider>
+    <StoreProvider>
       <HelmetProvider>
         <RouterProvider router={router} />
       </HelmetProvider>
-    </ContextProvider>
+    </StoreProvider>
   </React.StrictMode>,
 );
