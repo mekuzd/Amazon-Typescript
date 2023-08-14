@@ -17,7 +17,7 @@ const DefaultLayout = ({ children }: Props) => {
 
   useEffect(() => {
     document.body.setAttribute("data-bs-theme", mode);
-  });
+  }, [mode]);
 
   return (
     <>
