@@ -26,7 +26,7 @@ export class Product {
   public price!: number;
 
   @prop({ required: true, default: 0 })
-  public conutInStock!: number;
+  public countInStock!: number;
 
   @prop({ required: true, default: 0 })
   public rating!: number;
