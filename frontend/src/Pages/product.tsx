@@ -1,26 +1,48 @@
 import { Helmet } from "react-helmet-async";
 import { useEffect, useReducer } from "react";
-import { getError } from "../utils";
+import { convertProductToCartItem, getError } from "../utils";
 import { reducer } from "../Reducer";
-
+import { useContext } from "react";
 import { State } from "../Types/state";
 import { Action } from "../Types/Action";
 import { initialState } from "./Hompage";
 import apiClient from "../Services/apiClient";
 import { ApiError } from "../Types/apiError";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../Components/Loading";
 import { Badge, Button, Card, Col, ListGroup, Row } from "react-bootstrap";
 import Message from "../Components/Message";
 import DefaultLayout from "../Components/DefaultLayout";
 import { Rate } from "antd";
+import { Store } from "../Provider/Store";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const { slug } = useParams();
   const [{ product, loading, error }, dispatch] = useReducer<
     React.Reducer<State, Action>
   >(reducer, initialState);
+  const navigate = useNavigate();
+  const { state, dispatch: Dispatch } = useContext(Store);
+  const {
+    cart: { cartItems },
+  } = state;
 
+  // add item to cart
+  const addToCartHandler = () => {
+    const existingItem = cartItems.find((items) => items._id === product._id);
+    const quantity = existingItem ? existingItem.quantity + 1 : 1;
+    if (product.countInStock! < quantity) {
+      toast.warn("sorry! Product is out of stock");
+      return;
+    }
+    Dispatch({
+      type: "ADD_TO_CART",
+      payload: { ...convertProductToCartItem(product), quantity },
+    });
+    toast.success("Product added to cart");
+    navigate("/cart");
+  };
   useEffect(() => {
     const fetchProduct = async () => {
       dispatch({ type: "FETCH_REQUEST" });
@@ -101,7 +123,9 @@ const Product = () => {
                     {product.countInStock ? (
                       <ListGroup.Item>
                         <div className="d-grid">
-                          <Button variant="primary">Add to Cart</Button>
+                          <Button variant="primary" onClick={addToCartHandler}>
+                            Add to Cart
+                          </Button>
                         </div>
                       </ListGroup.Item>
                     ) : (

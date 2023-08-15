@@ -2,8 +2,26 @@ import { Link } from "react-router-dom";
 import { Product } from "../Types/Product";
 import { Button, Card } from "react-bootstrap";
 import { Rate } from "antd";
-
+import { useContext } from "react";
+import { Store } from "../Provider/Store";
+import { CartItem } from "../Types/Cart";
+import { convertProductToCartItem } from "../utils";
 const ProductItem = ({ products }: { products: Product }) => {
+  const { state, dispatch } = useContext(Store);
+  const {
+    cart: { cartItems },
+  } = state;
+
+  // add item to cart
+  const addToCartHandler = (item: CartItem) => {
+    const existingItem = cartItems.find((items) => items._id === products._id);
+    const quantity = existingItem ? existingItem.quantity + 1 : 1;
+    if (products.countInStock! < quantity) {
+      return alert("sorry! Product is out of stock");
+    }
+    dispatch({ type: "ADD_TO_CART", payload: { ...item, quantity } });
+  };
+
   return (
     <Card className="m-1">
       <Link to={`/product/${products.slug}`}>
@@ -21,7 +39,11 @@ const ProductItem = ({ products }: { products: Product }) => {
             Out of stock
           </Button>
         ) : (
-          <Button>Add to cart</Button>
+          <Button
+            onClick={() => addToCartHandler(convertProductToCartItem(products))}
+          >
+            Add to cart
+          </Button>
         )}
       </Card.Body>
     </Card>

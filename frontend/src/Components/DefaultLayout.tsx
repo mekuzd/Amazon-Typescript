@@ -1,13 +1,14 @@
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, Button, Badge } from "react-bootstrap";
 import { useContext, useEffect } from "react";
 import { Store } from "../Provider/Store";
+import { Link } from "react-router-dom";
 export type Props = {
   children: React.ReactNode;
 };
 
 const DefaultLayout = ({ children }: Props) => {
   const {
-    state: { mode },
+    state: { mode, cart },
     dispatch,
   } = useContext(Store);
 
@@ -29,9 +30,15 @@ const DefaultLayout = ({ children }: Props) => {
           {mode == "dark" ? "light" : "dark"}
         </Button>
         <Nav>
-          <a className="nav-link" href="">
+          <Link className="nav-link" to={"/cart"}>
             Cart
-          </a>
+            {cart.cartItems.length > 0 && (
+              //sum up quantity in cart
+              <Badge pill bg="danger">
+                {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+              </Badge>
+            )}
+          </Link>
           <a className="nav-link" href="">
             Login
           </a>

@@ -2,10 +2,10 @@ export type CartItem = {
   name: string;
   slug: string;
   image: string | undefined;
-  quantity: string;
+  quantity: number;
   price: number;
   countInStock: number;
-  _id: number;
+  _id: string;
 };
 export type shippingAddress = {
   fullName: string;
