@@ -36,6 +36,10 @@ type Action =
   | {
       type: "ADD_TO_CART";
       payload: CartItem;
+    }
+  | {
+      type: "CART_REMOVE_ITEM";
+      payload: CartItem;
     };
 
 function reducer(state: AppState, action: Action): AppState {
@@ -55,6 +59,12 @@ function reducer(state: AppState, action: Action): AppState {
       : [...state.cart.cartItems, newItem];
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
+    return { ...state, cart: { ...state.cart, cartItems } };
+  } else if (action.type == "CART_REMOVE_ITEM") {
+    const cartItems = state.cart.cartItems.filter(
+      (item) => item._id !== action.payload._id,
+    );
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
     return { ...state, cart: { ...state.cart, cartItems } };
   } else {
     return state;

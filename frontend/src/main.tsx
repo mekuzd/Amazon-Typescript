@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Product from "./Pages/product.tsx";
 import { StoreProvider } from "./Provider/Store.tsx";
+import Cartpage from "./Pages/CartPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/product/:slug",
     element: <Product />,
+  },
+  {
+    path: "/cart",
+    element: <Cartpage />,
   },
 ]);
 

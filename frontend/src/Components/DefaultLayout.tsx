@@ -2,6 +2,7 @@ import { Navbar, Container, Nav, Button, Badge } from "react-bootstrap";
 import { useContext, useEffect } from "react";
 import { Store } from "../Provider/Store";
 import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 export type Props = {
   children: React.ReactNode;
 };
@@ -24,7 +25,9 @@ const DefaultLayout = ({ children }: Props) => {
     <>
       <Navbar bg={mode} variant={mode} expand="lg">
         <Container>
-          <Navbar.Brand>AmazonTs</Navbar.Brand>
+          <LinkContainer to={"/"}>
+            <Navbar.Brand>AmazonTs</Navbar.Brand>
+          </LinkContainer>
         </Container>
         <Button onClick={switchModeHandler} variant={mode}>
           {mode == "dark" ? "light" : "dark"}
