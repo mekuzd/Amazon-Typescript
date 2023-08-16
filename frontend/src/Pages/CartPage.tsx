@@ -31,6 +31,7 @@ const Cartpage = () => {
   };
   const removeItemHandler = (item: CartItem) => {
     dispatch({ type: "CART_REMOVE_ITEM", payload: item });
+    toast.success("Product removed from cart successfully");
   };
 
   const checkoutHandler = () => {
