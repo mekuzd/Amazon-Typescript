@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Store } from "../Provider/Store";
 import { useContext } from "react";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { CartItem } from "../Types/Cart";
 import { Helmet } from "react-helmet-async";
 import { Button, Card, Col, ListGroup, Row } from "react-bootstrap";
@@ -39,7 +39,8 @@ const Cartpage = () => {
 
   return (
     <DefaultLayout>
-      <div>
+      <ToastContainer position="bottom-center" limit={1} />
+      <div className="p-4">
         <Helmet>
           <title>Shopping Cart</title>
         </Helmet>

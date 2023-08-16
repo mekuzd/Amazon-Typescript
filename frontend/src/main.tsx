@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Product from "./Pages/product.tsx";
 import { StoreProvider } from "./Provider/Store.tsx";
 import Cartpage from "./Pages/CartPage.tsx";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter([
   {
