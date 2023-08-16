@@ -2,7 +2,7 @@ import { modelOptions, prop, getModelForClass } from "@typegoose/typegoose";
 
 @modelOptions({ schemaOptions: { timestamps: true } })
 export class Product {
-  public _id!: string;
+  public _id?: string;
 
   @prop({ required: true })
   public name!: string;
@@ -32,7 +32,7 @@ export class Product {
   public rating!: number;
 
   @prop({ required: true, default: 0 })
-  public numRevies!: number;
+  public numReviews!: number;
 }
 
 export const productModel = getModelForClass(Product);
