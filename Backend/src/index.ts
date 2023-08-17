@@ -5,6 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { productRouter } from "./Routes/productRouter";
 import { seedRouter } from "./Routes/seedRouter";
+import { userRouter } from "./Routes/userRouter";
 const port = 5000;
 dotenv.config();
 
@@ -12,8 +13,12 @@ const MONGODB_URI = process.env.MONGO_URI;
 mongoose.set("strictQuery", true);
 
 app.use(cors({ origin: ["http://localhost:3000"] }));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/products", productRouter);
 app.use("/api/seed", seedRouter);
+app.use("/api/users", userRouter);
 
 async function start() {
   try {
