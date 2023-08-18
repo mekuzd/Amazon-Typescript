@@ -10,6 +10,7 @@ import Product from "./Pages/product.tsx";
 import { StoreProvider } from "./Provider/Store.tsx";
 import Cartpage from "./Pages/CartPage.tsx";
 import "react-toastify/dist/ReactToastify.css";
+import SignIn from "./Pages/SigninPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: <Cartpage />,
+  },
+  {
+    path: "/signin",
+    element: <SignIn />,
   },
 ]);
 

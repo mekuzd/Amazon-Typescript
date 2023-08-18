@@ -1,15 +1,23 @@
-import { Navbar, Container, Nav, Button, Badge } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  Button,
+  Badge,
+  NavDropdown,
+} from "react-bootstrap";
 import { useContext, useEffect } from "react";
 import { Store } from "../Provider/Store";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
+
 export type Props = {
   children: React.ReactNode;
 };
 
 const DefaultLayout = ({ children }: Props) => {
   const {
-    state: { mode, cart },
+    state: { mode, cart, userInfo },
     dispatch,
   } = useContext(Store);
 
@@ -21,6 +29,13 @@ const DefaultLayout = ({ children }: Props) => {
     document.body.setAttribute("data-bs-theme", mode);
   }, [mode]);
 
+  const signoutHandler = () => {
+    dispatch({ type: "USER_SIGNOUT" });
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("shippingAddress");
+    localStorage.removeItem("paymentMethod");
+    window.location.href = "/signin";
+  };
   return (
     <>
       <Navbar bg={mode} variant={mode} expand="lg">
@@ -42,9 +57,21 @@ const DefaultLayout = ({ children }: Props) => {
               </Badge>
             )}
           </Link>
-          <a className="nav-link" href="">
-            Login
-          </a>
+          {userInfo ? (
+            <NavDropdown title={userInfo.name}>
+              <Link
+                className="dropdown-item"
+                to={"#signout"}
+                onClick={signoutHandler}
+              >
+                Sign Out
+              </Link>
+            </NavDropdown>
+          ) : (
+            <Link className="nav-link" to={"/signin"}>
+              signIn
+            </Link>
+          )}
         </Nav>
       </Navbar>
       {children}

@@ -22,3 +22,6 @@ img.thumbnail {
   text-align: center;
   min-height: 100vh;
 }
+.small-container {
+  max-width: 600px;
+}

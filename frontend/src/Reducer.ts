@@ -1,7 +1,7 @@
 import { State } from "./Types/state";
 import { Action } from "./Types/Action";
 
-export const reducer = (state: State, action: Action) => {
+export const reducer = (state: State, action: Action): State => {
   if (action.type == "FETCH_REQUEST") {
     return { ...state, loading: true };
   } else if (action.type == "FETCH_SUCCESS") {
