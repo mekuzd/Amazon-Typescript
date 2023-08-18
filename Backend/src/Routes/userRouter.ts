@@ -8,8 +8,6 @@ export const userRouter = express.Router();
 userRouter.post(
   "/signin",
   asyncHandler(async (req: Request, res: Response) => {
-    console.log(req.body);
-
     const user = await userModel.findOne({ email: req.body.email });
 
     if (user) {
