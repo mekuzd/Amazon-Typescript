@@ -24,6 +24,6 @@ userRouter.post(
         return;
       }
     }
-    res.status(402).json({ message: "Invalid email or password" });
+    res.status(401).json({ message: "Invalid email or password" });
   }),
 );
