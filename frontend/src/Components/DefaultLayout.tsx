@@ -10,6 +10,7 @@ import { useContext, useEffect } from "react";
 import { Store } from "../Provider/Store";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
+import { ToastContainer } from "react-toastify";
 
 export type Props = {
   children: React.ReactNode;
@@ -38,6 +39,7 @@ const DefaultLayout = ({ children }: Props) => {
   };
   return (
     <>
+      <ToastContainer position="bottom-center" limit={1} />
       <Navbar bg={mode} variant={mode} expand="lg">
         <Container>
           <LinkContainer to={"/"}>

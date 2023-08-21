@@ -40,7 +40,6 @@ const Product = () => {
       type: "ADD_TO_CART",
       payload: { ...convertProductToCartItem(product), quantity },
     });
-    toast.success("Product added to cart");
     navigate("/cart");
   };
   useEffect(() => {
