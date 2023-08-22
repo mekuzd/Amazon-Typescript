@@ -11,6 +11,7 @@ import { StoreProvider } from "./Provider/Store.tsx";
 import Cartpage from "./Pages/CartPage.tsx";
 import SignIn from "./Pages/SigninPage.tsx";
 import SignUp from "./Pages/SignUpPage.tsx";
+import ShippingAddressPage from "./Pages/ShippingAddress.tsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "/shipping",
+    element: <ShippingAddressPage />,
   },
 ]);
 

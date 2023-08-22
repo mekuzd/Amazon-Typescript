@@ -1,5 +1,5 @@
 import { useReducer, createContext } from "react";
-import { Cart, CartItem } from "../Types/Cart";
+import { Cart, CartItem, shippingAddress } from "../Types/Cart";
 import { userInfo } from "../Types/userInfo";
 type AppState = {
   mode: string;
@@ -62,7 +62,8 @@ type Action =
     }
   | {
       type: "USER_SIGNOUT";
-    };
+    }
+  | { type: "SAVE_SHIPPING_ADDRESS"; payload: shippingAddress };
 
 function reducer(state: AppState, action: Action): AppState {
   if (action.type == "SWITCH_MODE") {
@@ -118,6 +119,14 @@ function reducer(state: AppState, action: Action): AppState {
           ? "dark"
           : "light",
       loading: false,
+    };
+  } else if (action.type == "SAVE_SHIPPING_ADDRESS") {
+    return {
+      ...state,
+      cart: {
+        ...state.cart,
+        shippingAddress: action.payload,
+      },
     };
   } else {
     return state;
