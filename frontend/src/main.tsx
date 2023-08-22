@@ -12,6 +12,7 @@ import Cartpage from "./Pages/CartPage.tsx";
 import SignIn from "./Pages/SigninPage.tsx";
 import SignUp from "./Pages/SignUpPage.tsx";
 import ShippingAddressPage from "./Pages/ShippingAddress.tsx";
+import PaymentPage from "./Pages/Payementpage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/shipping",
     element: <ShippingAddressPage />,
+  },
+  {
+    path: "/payment",
+    element: <PaymentPage />,
   },
 ]);
 

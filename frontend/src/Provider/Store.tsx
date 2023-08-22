@@ -28,9 +28,9 @@ const initialState: AppState = {
     shippingAddress: localStorage.getItem("shippingAddress")
       ? JSON.parse(localStorage.getItem("shippingAddress")!)
       : {},
-    paymentMethod: localStorage.getItem("cartItems")
-      ? localStorage.getItem("cartItems")!
-      : "Paypal",
+    paymentMethod: localStorage.getItem("paymentMethod")
+      ? localStorage.getItem("paymentMethod")!
+      : "PayPal",
     itemprice: 0,
     shippingPrice: 0,
     taxPrice: 0,
@@ -63,7 +63,8 @@ type Action =
   | {
       type: "USER_SIGNOUT";
     }
-  | { type: "SAVE_SHIPPING_ADDRESS"; payload: shippingAddress };
+  | { type: "SAVE_SHIPPING_ADDRESS"; payload: shippingAddress }
+  | { type: "SAVE_PAYMENT_METHOD"; payload: string };
 
 function reducer(state: AppState, action: Action): AppState {
   if (action.type == "SWITCH_MODE") {
@@ -95,6 +96,11 @@ function reducer(state: AppState, action: Action): AppState {
     return { ...state, cart: { ...state.cart, cartItems } };
   } else if (action.type == "USER_SIGNIN") {
     return { ...state, userInfo: action.payload, loading: false };
+  } else if (action.type == "SAVE_PAYMENT_METHOD") {
+    return {
+      ...state,
+      cart: { ...state.cart, paymentMethod: action.payload },
+    };
   } else if (action.type == "USER_SIGNOUT") {
     return {
       ...state,
