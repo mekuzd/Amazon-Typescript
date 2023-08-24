@@ -39,6 +39,7 @@ const SignUp = () => {
       dispatch({ type: "USER_SIGNIN", payload: result.data });
       localStorage.setItem("userInfo", JSON.stringify(result.data));
       navigate(redirect);
+      dispatch({ type: "STOP_LOADING" });
     } catch (error) {
       dispatch({ type: "STOP_LOADING" });
       toast.error(getError(error as ApiError));

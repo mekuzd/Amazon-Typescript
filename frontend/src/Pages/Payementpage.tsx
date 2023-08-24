@@ -11,6 +11,7 @@ const PaymentPage = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useContext(Store);
   const {
+    userInfo,
     cart: { shippingAddress, paymentMethod },
   } = state;
 
@@ -19,6 +20,9 @@ const PaymentPage = () => {
   );
 
   useEffect(() => {
+    if (!userInfo) {
+      return navigate("/signin?redirect=/payment");
+    }
     if (!shippingAddress.address) {
       navigate("/shipping");
     }

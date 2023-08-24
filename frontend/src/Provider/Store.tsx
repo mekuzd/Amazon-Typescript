@@ -31,7 +31,7 @@ const initialState: AppState = {
     paymentMethod: localStorage.getItem("paymentMethod")
       ? localStorage.getItem("paymentMethod")!
       : "PayPal",
-    itemprice: 0,
+    itemsPrice: 0,
     shippingPrice: 0,
     taxPrice: 0,
     totalPrice: 0,
@@ -44,6 +44,9 @@ type Action =
     }
   | {
       type: "LOADING";
+    }
+  | {
+      type: "CART_CLEAR";
     }
   | {
       type: "STOP_LOADING";
@@ -114,7 +117,7 @@ function reducer(state: AppState, action: Action): AppState {
           country: "",
         },
         paymentMethod: "Paypal",
-        itemprice: 0,
+        itemsPrice: 0,
         shippingPrice: 0,
         taxPrice: 0,
         totalPrice: 0,
@@ -134,6 +137,8 @@ function reducer(state: AppState, action: Action): AppState {
         shippingAddress: action.payload,
       },
     };
+  } else if (action.type == "CART_CLEAR") {
+    return { ...state, cart: { ...state.cart, cartItems: [] } };
   } else {
     return state;
   }
