@@ -15,7 +15,7 @@ orderRouter.post(
       const createdOrder = await OrderModel.create({
         orderItems: req.body.orderItems.map((x: Product) => ({
           ...x,
-          product: x._id, // added product field to each item in orderItems a ref to each product
+          product: x._id, // added product field to each item in orderItems a ref to each productModel
         })),
         shippingAddress: req.body.shippingAddress,
         paymentMethod: req.body.paymentMethod,
