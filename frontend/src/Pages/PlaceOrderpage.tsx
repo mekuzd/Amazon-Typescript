@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Store } from "../Provider/Store";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { getError } from "../utils";
 import { ApiError } from "../Types/apiError";
 import apiClient from "../Services/apiClient";
@@ -55,10 +55,11 @@ const PlaceOrder = () => {
     if (!cart.paymentMethod) {
       navigate("/payment");
     }
-  }, [cart, navigate]);
+  }, [cart, userInfo, navigate]);
 
   return (
     <DefaultLayout>
+      <ToastContainer position="bottom-center" limit={1} />
       <div>
         <CheckoutSteps step1 step2 step3 step4 />
 
