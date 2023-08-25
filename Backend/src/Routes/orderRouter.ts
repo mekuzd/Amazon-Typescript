@@ -5,6 +5,19 @@ import { Auth } from "../Midddleware/Auth";
 import { OrderModel } from "../Models/orderModel";
 import { Product } from "../Models/ProductModel";
 
+orderRouter.get(
+  "/:id",
+  Auth,
+  asyncHandler(async (req: Request, res: Response) => {
+    const order = await OrderModel.findById(req.params.id);
+    if (order) {
+      res.send(order);
+    } else {
+      res.status(404).send({ message: "Order Not Found" });
+    }
+  }),
+);
+
 orderRouter.post(
   "/",
   Auth,
