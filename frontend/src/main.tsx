@@ -14,6 +14,7 @@ import SignUp from "./Pages/SignUpPage.tsx";
 import ShippingAddressPage from "./Pages/ShippingAddress.tsx";
 import PaymentPage from "./Pages/Payementpage.tsx";
 import PlaceOrder from "./Pages/PlaceOrderpage.tsx";
+import OrderReview from "./Pages/orderReviewPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/placeorder",
     element: <PlaceOrder />,
+  },
+  {
+    path: "/order/:id",
+    element: <OrderReview />,
   },
 ]);
 
