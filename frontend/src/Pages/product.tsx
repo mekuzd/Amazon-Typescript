@@ -31,7 +31,7 @@ const Product = () => {
   // add item to cart
   const addToCartHandler = () => {
     const existingItem = cartItems.find((items) => items._id === product._id);
-    const quantity = existingItem ? existingItem.quantity + 1 : 1;
+    const quantity = existingItem ? existingItem.quantity + 1 : 1; // if item exist increase quantity else make quantity 1
     if (product.countInStock! < quantity) {
       toast.warn("sorry! Product is out of stock");
       return;

@@ -15,7 +15,7 @@ const ProductItem = ({ products }: { products: Product }) => {
   // add item to cart
   const addToCartHandler = (item: CartItem) => {
     const existingItem = cartItems.find((items) => items._id === products._id);
-    const quantity = existingItem ? existingItem.quantity + 1 : 1;
+    const quantity = existingItem ? existingItem.quantity + 1 : 1; // if item exist increase quantity else make quantity 1
     if (products.countInStock! < quantity) {
       return alert("sorry! Product is out of stock");
     }

@@ -3,7 +3,6 @@ import { useReducer, useEffect } from "react";
 import { getError } from "../utils";
 import { reducer } from "../Reducer";
 import { ApiError } from "../Types/apiError";
-import Loading from "../Components/Loading";
 import Message from "../Components/Message";
 import ProductItem from "../Components/ProductItem";
 import { Helmet } from "react-helmet-async";
@@ -39,8 +38,42 @@ const Homepage = () => {
     fetchData();
   }, []);
 
+  // skeleton for products
+  const skeletonItems = Array.from(
+    { length: products.length || 4 },
+    (_, index) => (
+      <Col sm={6} md={4} lg={3}>
+        <div key={index} className="pre-load bg-light">
+          <div
+            className="loadings animate  w-100"
+            style={{ height: "280px" }}
+          ></div>
+
+          <div className=" my-3 p-3">
+            <p
+              className="loadings animate"
+              style={{ height: "20px", width: "70%" }}
+            ></p>
+            <p
+              className="loadings animate my-3"
+              style={{ height: "20px", width: "50%" }}
+            ></p>
+            <p
+              className="loadings animate"
+              style={{ height: "20px", width: "50%" }}
+            ></p>
+            <p
+              className="loadings animate mt-2 rounded"
+              style={{ height: "40px", width: "100px" }}
+            ></p>
+          </div>
+        </div>
+      </Col>
+    ),
+  );
+
   return loading ? (
-    <Loading />
+    <Row>{skeletonItems}</Row>
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (

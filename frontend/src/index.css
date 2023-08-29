@@ -23,7 +23,7 @@ img.thumbnail {
   min-height: 100vh;
 }
 .small-container {
-  max-width: 600px;
+  max-width: 600px !important;
 }
 .checkout-steps > div {
   border-bottom: 0.2rem solid #a0a0a0;
@@ -32,4 +32,28 @@ img.thumbnail {
 .checkout-steps > div.active {
   border-bottom: 0.2rem solid #f08000;
   color: #f08000;
+}
+.pre-load {
+  height: 500px;
+  width: 100%;
+}
+
+.loadings {
+  width: 100%;
+  background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 80%
+    ),
+    lightgray;
+  background-repeat: repeat-y;
+  background-size: 50px 500px;
+  background-position: 0 0;
+  animation: shine 1s infinite;
+}
+@keyframes shine {
+  to {
+    background-position: 100% 0, /* move highlight to right */ 0 0;
+  }
 }
