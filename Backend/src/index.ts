@@ -7,6 +7,7 @@ import { productRouter } from "./Routes/productRouter";
 import { seedRouter } from "./Routes/seedRouter";
 import { userRouter } from "./Routes/userRouter";
 import { orderRouter } from "./Routes/orderRouter";
+import { keyRouter } from "./Routes/keyRouter";
 const port = 5000;
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use("/api/products", productRouter);
 app.use("/api/seed", seedRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/users", userRouter);
+app.use("/api/keys", keyRouter);
 
 async function start() {
   try {
