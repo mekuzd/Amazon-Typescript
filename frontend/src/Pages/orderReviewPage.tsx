@@ -9,9 +9,15 @@ import DefaultLayout from "../Components/DefaultLayout";
 import Loading from "../Components/Loading";
 import Message from "../Components/Message";
 import { Helmet } from "react-helmet-async";
-import { Card, Col, ListGroup, Row } from "react-bootstrap";
+import { Button, Card, Col, ListGroup, Row } from "react-bootstrap";
 import { CartItem } from "../Types/Cart";
 import { Order } from "../Types/Order";
+import {
+  PayPalButtons,
+  usePayPalScriptReducer,
+  SCRIPT_LOADING_STATE,
+  PayPalButtonsComponentProps,
+} from "@paypal/react-paypal-js";
 
 const OrderReview = () => {
   const navigate = useNavigate();
@@ -19,6 +25,7 @@ const OrderReview = () => {
   const { userInfo, loading } = state;
   const { id } = useParams();
   const [order, setOrder] = useState<Order | null>(null);
+  const [paymentId, setPaymentId] = useState<string>("");
   let isMounted = true;
 
   useEffect(() => {
@@ -42,6 +49,98 @@ const OrderReview = () => {
       isMounted = false;
     };
   }, []);
+
+  // receive paypalPaymentID
+  useEffect(() => {
+    const getPaymentId = async () => {
+      try {
+        const result = await apiClient.get(`/api/keys/paypal`);
+        setPaymentId(result.data.clientId);
+      } catch (err) {
+        toast.error(getError(err as ApiError));
+      }
+    };
+
+    if (isMounted) {
+      getPaymentId();
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const payOrder = async (id: string, details: any) => {
+    // update db with payment info
+    try {
+      let result = await apiClient.put(`/api/orders/${id}/pay`, { ...details }); // details here is the payment info from Paypal
+      setOrder(result.data.order);
+      toast.success(result.data.Message);
+    } catch (err) {
+      toast.error(getError(err as ApiError));
+    }
+  };
+
+  // for dev purpose testing
+  const testPayHandler = async () => {
+    await payOrder(id!, {});
+    toast.success("Order is paid");
+  };
+
+  const [{ isPending, isRejected }, paypalDispatch] = usePayPalScriptReducer();
+
+  useEffect(() => {
+    // set paymentId to paypal script
+    // if PaymentId is true
+    if (paymentId) {
+      const loadPayPalScript = async () => {
+        paypalDispatch({
+          type: "resetOptions",
+          value: {
+            clientId: paymentId,
+            currency: "USD",
+          },
+        });
+        paypalDispatch({
+          type: "setLoadingStatus",
+          value: SCRIPT_LOADING_STATE.PENDING,
+        });
+      };
+      loadPayPalScript();
+    }
+  }, []);
+
+  const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
+    style: { layout: "vertical" },
+    createOrder(data, actions) {
+      return actions.order
+        .create({
+          purchase_units: [
+            {
+              amount: {
+                value: order!.totalPrice!.toString(), // total price sent to pAyPal
+              },
+            },
+          ],
+        })
+        .then((orderID: string) => {
+          return orderID;
+        });
+    },
+    onApprove(data, actions) {
+      return actions.order!.capture().then(async (details) => {
+        try {
+          payOrder(id!, { ...details });
+          toast.success("Order is paid");
+        } catch (err) {
+          toast.error(getError(err as ApiError));
+        }
+      });
+    },
+    onError: (err) => {
+      toast.error(getError(err as ApiError));
+    },
+  };
+  console.log(order?.isPaid);
 
   useEffect(() => {
     if (!userInfo) {
@@ -158,7 +257,23 @@ const OrderReview = () => {
                           <strong>${order.totalPrice!.toFixed(2)}</strong>
                         </Col>
                       </Row>
-                    </ListGroup.Item>{" "}
+                    </ListGroup.Item>
+                    {!order?.isPaid && (
+                      <ListGroup.Item>
+                        {isPending ? (
+                          <Loading />
+                        ) : isRejected ? (
+                          <Message> Error in connecting too Paypal</Message>
+                        ) : (
+                          <div>
+                            <PayPalButtons
+                              {...paypalbuttonTransactionProps}
+                            ></PayPalButtons>
+                            <Button onClick={testPayHandler}> Test Pay</Button>
+                          </div>
+                        )}
+                      </ListGroup.Item>
+                    )}
                   </ListGroup>
                 </Card.Body>
               </Card>

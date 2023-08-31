@@ -15,6 +15,7 @@ import ShippingAddressPage from "./Pages/ShippingAddress.tsx";
 import PaymentPage from "./Pages/Payementpage.tsx";
 import PlaceOrder from "./Pages/PlaceOrderpage.tsx";
 import OrderReview from "./Pages/orderReviewPage.tsx";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const router = createBrowserRouter([
   {
@@ -59,9 +60,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <StoreProvider>
-      <HelmetProvider>
-        <RouterProvider router={router} />
-      </HelmetProvider>
+      <PayPalScriptProvider options={{ clientId: "sb" }} deferLoading={true}>
+        <HelmetProvider>
+          <RouterProvider router={router} />
+        </HelmetProvider>
+      </PayPalScriptProvider>
     </StoreProvider>
   </React.StrictMode>,
 );
