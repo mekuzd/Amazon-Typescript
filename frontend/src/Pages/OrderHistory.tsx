@@ -38,8 +38,6 @@ const OrderHistory = () => {
     }
   }, []);
 
-  console.log(orders);
-
   useEffect(() => {
     if (!userInfo) {
       navigate("signin");
