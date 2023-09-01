@@ -6,15 +6,11 @@ import { OrderModel } from "../Models/orderModel";
 import { Product } from "../Models/ProductModel";
 
 orderRouter.get(
-  "/:id",
+  "/mine",
   Auth,
   asyncHandler(async (req: Request, res: Response) => {
-    const order = await OrderModel.findById(req.params.id);
-    if (order) {
-      res.send(order);
-    } else {
-      res.status(404).send({ message: "Order Not Found" });
-    }
+    const orders = await OrderModel.find({ user: req.user._id });
+    res.send(orders);
   }),
 );
 
@@ -43,6 +39,18 @@ orderRouter.post(
   }),
 );
 
+orderRouter.get(
+  "/:id",
+  Auth,
+  asyncHandler(async (req: Request, res: Response) => {
+    const order = await OrderModel.findById(req.params.id);
+    if (order) {
+      res.send(order);
+    } else {
+      res.status(404).send({ message: "Order Not Found" });
+    }
+  }),
+);
 // update Payment status and save user payment Result from paypal
 orderRouter.put(
   "/:id/pay",
