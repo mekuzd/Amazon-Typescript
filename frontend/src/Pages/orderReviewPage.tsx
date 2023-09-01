@@ -107,7 +107,7 @@ const OrderReview = () => {
       };
       loadPayPalScript();
     }
-  }, []);
+  }, [paymentId]);
 
   const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
     style: { layout: "vertical" },
@@ -140,7 +140,6 @@ const OrderReview = () => {
       toast.error(getError(err as ApiError));
     },
   };
-  console.log(order?.isPaid);
 
   useEffect(() => {
     if (!userInfo) {

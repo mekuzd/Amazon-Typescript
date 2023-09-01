@@ -16,6 +16,7 @@ import PaymentPage from "./Pages/Payementpage.tsx";
 import PlaceOrder from "./Pages/PlaceOrderpage.tsx";
 import OrderReview from "./Pages/orderReviewPage.tsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import OrderHistory from "./Pages/OrderHistory.tsx";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/order/:id",
     element: <OrderReview />,
+  },
+  {
+    path: "/orders",
+    element: <OrderHistory />,
   },
 ]);
 
